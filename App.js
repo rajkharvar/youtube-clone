@@ -29,10 +29,8 @@ const tabNavigator = createBottomTabNavigator(
         color: '#888'
       },
       activeTintColor: '#fff',
-      pressColor: '#999'
+      pressColor: '#fff'
     },
-    swipeEnabled: true,
-    animationEnabled: true,
     defaultNavigationOptions: ({ navigation }) => ({
       tabBarIcon: ({ focussed, tintColor }) => {
         const { routeName } = navigation.state;
@@ -74,7 +72,10 @@ const tabNavigator = createBottomTabNavigator(
           );
         }
       }
-    })
+    }),
+    navigationOptions: {
+      gestureEnabled: true
+    }
   }
 );
 
