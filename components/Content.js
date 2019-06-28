@@ -10,7 +10,7 @@ const data = [
     views: 922,
     duration: '2:06',
     cover_image: require('../assets/img1.jpg'),
-    channel: 'A bussiness channel',
+    channel: 'Beauty channel',
     timeStamp: '1 hour ago'
   },
   {
@@ -40,7 +40,7 @@ const data = [
     views: 1002,
     duration: '2:06',
     cover_image: require('../assets/img4.jpg'),
-    channel: 'bussiness channel',
+    channel: 'Bussiness channel',
     timeStamp: '5 hours ago'
   },
   {
