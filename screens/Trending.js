@@ -1,6 +1,14 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, ScrollView, SafeAreaView } from 'react-native';
+import {
+  View,
+  Text,
+  StyleSheet,
+  ScrollView,
+  SafeAreaView,
+  Animated
+} from 'react-native';
 import Content from '../components/Content';
+import Header from '../components/Header';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 
 const icons = [
@@ -42,9 +50,29 @@ const icons = [
 ];
 
 class Trending extends Component {
+  componentWillMount() {
+    this.scrollY = new Animated.Value(0);
+    this.startHeaderHeight = 70;
+    this.endHeaderHeight = 0;
+
+    this.animatedHeaderHeight = this.scrollY.interpolate({
+      inputRange: [0, 50],
+      outputRange: [this.startHeaderHeight, this.endHeaderHeight],
+      extrapolate: 'clamp'
+    });
+
+    this.animatedOpacity = this.animatedHeaderHeight.interpolate({
+      inputRange: [0, 50],
+      outputRange: [0, 1],
+      extrapolate: 'clamp'
+    });
+  }
   renderAllIcons = () => {
     return icons.map(item => (
-      <View style={{ flex: 1, marginBottom: 10, marginLeft: 18 }} key={item.id}>
+      <View
+        style={{ flex: 1, marginVertical: 10, marginLeft: 18 }}
+        key={item.id}
+      >
         <View
           style={{
             width: 48,
@@ -61,7 +89,14 @@ class Trending extends Component {
             size={26}
           />
         </View>
-        <Text style={{ fontSize: 14, color: '#aaa', marginTop: 10 }}>
+        <Text
+          style={{
+            fontSize: 14,
+            color: '#aaa',
+            marginTop: 10,
+            alignSelf: 'center'
+          }}
+        >
           {item.title}
         </Text>
       </View>
@@ -71,9 +106,20 @@ class Trending extends Component {
     return (
       <View style={styles.container}>
         <SafeAreaView style={{ paddingTop: 10, backgroundColor: '#333' }} />
-        <ScrollView>
-          <ScrollView horizontal>{this.renderAllIcons()}</ScrollView>
-          <ScrollView>
+        <ScrollView showsVerticalScrollIndicator={false}>
+          <Header
+            animatedHeight={this.animatedHeaderHeight}
+            animatedOpacity={this.animatedOpacity}
+          />
+          <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+            {this.renderAllIcons()}
+          </ScrollView>
+          <ScrollView
+            scrollEventThrottle={16}
+            onScroll={Animated.event([
+              { nativeEvent: { contentOffset: { y: this.scrollY } } }
+            ])}
+          >
             <Content />
           </ScrollView>
         </ScrollView>

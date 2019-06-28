@@ -6,10 +6,12 @@ import Trending from './screens/Trending';
 import Subscriptions from './screens/Subscriptions';
 import Inbox from './screens/Inbox';
 import Library from './screens/Library';
-import { MaterialIcons } from '@expo/vector-icons';
-import { MaterialCommunityIcons } from '@expo/vector-icons';
-import { FontAwesome } from '@expo/vector-icons';
-import { Octicons } from '@expo/vector-icons';
+import {
+  MaterialIcons,
+  MaterialCommunityIcons,
+  FontAwesome,
+  Octicons
+} from '@expo/vector-icons';
 
 const tabNavigator = createBottomTabNavigator(
   {
